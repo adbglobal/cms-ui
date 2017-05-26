@@ -29,6 +29,10 @@ define(function(require, exports, module) {
             };
         },
 
+        getValue: function() {
+            return this.data;
+        },
+
         convertToScalarValue: function(data) {
             return data ? data.id : null;
         },
