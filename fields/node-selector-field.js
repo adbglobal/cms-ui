@@ -38,8 +38,14 @@ define(function(require, exports, module) {
         },
 
         convertToDataValue: function(scalarValue, callback) {
-            var value = this.selectOptions.find(x => x.value == scalarValue);
-            callback(null, value ? value.picked : null);
+            var value;
+            if (Alpaca.isArray(scalarValue)) {
+                value = scalarValue.map(x => this.selectOptions.find(y => y.value == x))
+                callback(null, value ? value.map(x => x.picked) : null);
+            } else {
+                value = this.selectOptions.find(x => x.value == scalarValue);
+                callback(null, value ? value.picked : null);
+            }
         },
 
         setupField: function(callback) {
