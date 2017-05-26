@@ -52,7 +52,13 @@ define(function(require, exports, module) {
             var self = this;
 
             this.base(function() {
-                self.connector.branch.queryNodes({ _type: self.schema._relator.nodeType }).each(function() {
+                self.connector.branch.queryNodes({
+                    _type: self.schema._relator.nodeType
+                }, {
+                    "sort": {
+                        "title": 1
+                    }
+                }).each(function() {
                     self.selectOptions.push({
                         "value": this._doc,
                         "text": this.title,
