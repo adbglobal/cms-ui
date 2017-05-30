@@ -23,6 +23,10 @@ define(function(require, exports, module) {
             }
         },
 
+        getFieldType: function() {
+            return "node-selector";
+        },
+
         dataStringToObject: function(text) {
             return {
                 "id": text
@@ -34,7 +38,10 @@ define(function(require, exports, module) {
         },
 
         convertToScalarValue: function(data) {
-            return data ? data.id : null;
+            if (Alpaca.isArray(data))
+                return data.map(x => x.id)
+            else
+                return data ? data.id : null;
         },
 
         convertToDataValue: function(scalarValue, callback) {
