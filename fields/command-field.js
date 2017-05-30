@@ -172,14 +172,25 @@ define(function(require, exports, module) {
                         if (!self.subscribed) {
                             self.subscribed = true;
                             self.subscribe(dep, function(value) {
-                                if (value)
-                                    self.updateSchemaOptions(value.id, function() {
+                                if (value) {
+                                    var id;
+                                    if (Alpaca.isArray(value))
+                                        id = value[0].id
+                                    else
+                                        id = value.id
+                                    self.updateSchemaOptions(id, function() {
                                         self.refresh();
                                     })
+                                }
                             });
                         }
                         if (dep.data) {
-                            self.updateSchemaOptions(dep.data.id, function() {
+                            var id;
+                            if (Alpaca.isArray(dep.data))
+                                id = dep.data[0].id
+                            else
+                                id = dep.data.id
+                            self.updateSchemaOptions(id, function() {
                                 self.refresh();
                             })
                         }
@@ -192,12 +203,22 @@ define(function(require, exports, module) {
                             self.subscribed = true;
                             self.subscribe(dep, function(value) {
                                 if (value)
-                                    self.updateSchemaOptions(value.id, function() {
-                                        self.refresh();
-                                    })
+                                    var id;
+                                if (Alpaca.isArray(value))
+                                    id = value[0].id
+                                else
+                                    id = value.id
+                                self.updateSchemaOptions(id, function() {
+                                    self.refresh();
+                                })
                             });
                         }
-                        self.updateSchemaOptions(dep.data.id, callback)
+                        var id;
+                        if (Alpaca.isArray(dep.data))
+                            id = dep.data[0].id
+                        else
+                            id = dep.data.id
+                        self.updateSchemaOptions(id, callback)
                     })
                 else {
                     this.base(callback)
