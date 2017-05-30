@@ -16,6 +16,7 @@ define(function(require) {
     require("./fields/node-selector-field.js");
     require("./fields/slave-array.js");
     require("./fields/lodash.js")
+    require("./fields/adb-summernote.js")
 
     // sample override to document-properties
     //require("./gadgets/sample-product-document-properties/sample-product-document-properties.js");
