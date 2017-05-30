@@ -34,7 +34,16 @@ define(function(require, exports, module) {
         },
 
         getValue: function() {
-            return this.base();
+            var value;
+            var scalarValue = this.control.val()
+
+            if (Alpaca.isArray(scalarValue)) {
+                value = scalarValue.map(x => this.selectOptions.find(y => y.value == x))
+                return value ? value.map(x => x.picked) : null
+            } else {
+                value = this.selectOptions.find(x => x.value == scalarValue);
+                return value ? value.picked : null
+            }
         },
 
         setValue: function(val) {
