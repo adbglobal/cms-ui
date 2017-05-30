@@ -166,6 +166,15 @@ define(function(require, exports, module) {
         setupField: function(callback) {
             var self = this;
             //console.log("setup field " + self.name)
+            function refresh() {
+                if (!self.initializing) {
+                    if (self.top && self.top() && self.top().initializing) {
+                        // if we're rendering under a top most control that isn't finished initializing, then don't refresh
+                    } else {
+                        self.refresh();
+                    }
+                }
+            }
 
             if (self.options.dependentField) {
                 // find the field and register a callback
@@ -182,9 +191,7 @@ define(function(require, exports, module) {
                                         id = value[0].id
                                     else
                                         id = value.id
-                                    self.updateSchemaOptions(id, function() {
-                                        self.refresh();
-                                    })
+                                    self.updateSchemaOptions(id, refresh)
                                 }
                             });
                         }
@@ -194,9 +201,7 @@ define(function(require, exports, module) {
                                 id = dep.data[0].id
                             else
                                 id = dep.data.id
-                            self.updateSchemaOptions(id, function() {
-                                self.refresh();
-                            })
+                            self.updateSchemaOptions(id, refresh)
                         }
                     }
                 });
@@ -212,9 +217,7 @@ define(function(require, exports, module) {
                                     id = value[0].id
                                 else
                                     id = value.id
-                                self.updateSchemaOptions(id, function() {
-                                    self.refresh();
-                                })
+                                self.updateSchemaOptions(id, refresh)
                             });
                         }
                         var id;
