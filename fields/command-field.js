@@ -34,6 +34,7 @@ define(function(require, exports, module) {
         },
     })
 
+
     Alpaca.registerDefaultFormatFieldMapping("text", "text");
 
     return UI.registerField("appliance-command", Alpaca.Fields.ObjectField.extend({
@@ -43,6 +44,9 @@ define(function(require, exports, module) {
         },
 
         updateSchemaOptions: function(nodeId, callback) {
+
+            var clist = null;
+
             function loadCacheAttachment(field, node, attachmentName) {
                 var cachedDocument = null;
                 var cachedDocument = self.connector.cache(nodeId + '/' + attachmentName);
@@ -240,15 +244,5 @@ define(function(require, exports, module) {
     var UI = require("ui");
     var Alpaca = require("alpaca");
 
-    Alpaca.registerDefaultFormatFieldMapping("independent-slave-field", "independent-slave-field");
 
-    return UI.registerField("independent-slave-field", Alpaca.Fields.NumberField.extend({
-        setValue: function(value) {
-            //console.log(this.name + ' ' + this.data + " : " + value)
-            if (Alpaca.isEmpty(this.data))
-                this.base(value)
-            else
-                this.base(this.data)
-        }
-    }));
 });
