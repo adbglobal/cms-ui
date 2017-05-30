@@ -91,24 +91,72 @@ define(function(require, exports, module) {
                 }
             }
 
-            var self = this;
-
-            self.connector.branch.queryOne({ "_doc": nodeId }).then(function() {
+            function loadCacheAttachments(node) {
                 if (self.options.isSlave) {
                     var masterSchema = {};
                     var masterOptions = {};
-                    loadCacheAttachment(masterSchema, this, 'schema');
-                    Object.assign(self.schema, makeSlaveSchema(masterSchema))
-                    loadCacheAttachment(masterOptions, this, 'options');
-                    Object.assign(self.options, makeSlaveOptions(masterOptions))
+                    var f1 = function() {
+                        loadCacheAttachment(masterSchema, node, 'schema');
+                        Object.assign(self.schema, makeSlaveSchema(masterSchema))
+                    }
+                    var f2 = function() {
+                        loadCacheAttachment(masterOptions, node, 'options');
+                        Object.assign(self.options, makeSlaveOptions(masterOptions))
+                    }
+                    Alpaca.parallel([f1, f2], function() {})
                 } else {
-                    loadCacheAttachment(self.schema, this, 'schema');
-                    loadCacheAttachment(self.options, this, 'options');
+                    loadCacheAttachment(self.schema, node, 'schema');
+                    loadCacheAttachment(self.options, node, 'options');
                 }
-            }).then(function() {
+            }
+
+            function cacheHandlers() {
+                var callbacks = $.Callbacks("once")
+                var addFn = function(func) {
+                    var context = this,
+                        args = arguments;
+                    var cb = function() {
+                        func.apply(context, args);
+                    };
+                    callbacks.add(cb)
+                }
+                var fireFn = function() {
+                    callbacks.fire()
+                }
+                return { add: addFn, fire: fireFn }
+            }
+
+            function loadCachedNode() {
+                //console.log(self.name, ": fired")
+                loadCacheAttachments(clist.node)
                 if (callback)
                     callback();
-            })
+            }
+
+            var self = this;
+            var cacheKey = "command-field:" + nodeId;
+            //console.log(self.name, ": ", cacheKey)
+            clist = self.connector.cache(cacheKey);
+            if (clist) {
+                if (clist.node) {
+                    //console.log("found")
+                    loadCachedNode()
+                } else {
+                    //console.log("callback added")
+                    clist.add(loadCachedNode)
+                }
+            } else {
+                //console.log("not found")
+                clist = cacheHandlers();
+                clist.add(loadCachedNode);
+                self.connector.cache(cacheKey, clist);
+                self.connector.branch.queryOne({ "_doc": nodeId }).then(function() {
+                    clist.node = this;
+                    loadCacheAttachments(this)
+                }).then(function() {
+                    clist.fire()
+                })
+            }
         },
 
         setupField: function(callback) {

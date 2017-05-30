@@ -48,32 +48,81 @@ define(function(require, exports, module) {
             }
         },
 
-        setupField: function(callback) {
+        loadCacheList: function(callback) {
             var self = this;
+            var clist = null
+            var cachekey = "node-selector:" + self.schema._relator.nodeType
 
-            this.base(function() {
+            function cacheHandlers() {
+                var callbacks = $.Callbacks("once")
+                var addFn = function(func) {
+                    var context = this,
+                        args = arguments;
+                    var cb = function() {
+                        func.apply(context, args);
+                    };
+                    callbacks.add(cb)
+                }
+                var fireFn = function() {
+                    callbacks.fire()
+                }
+                return { add: addFn, fire: fireFn }
+            }
+
+            function loadCachedList() {
+                //console.log(self.name, ": fired")
+                self.selectOptions = clist.list.slice();
+                if (callback)
+                    callback();
+            }
+
+            clist = self.connector.cache(cachekey);
+            //console.log(self.name, ": ", cachekey)
+            if (clist) {
+                if (clist.list) {
+                    //console.log("found")
+                    loadCachedList()
+                } else {
+                    //console.log("callback added")
+                    clist.add(loadCachedList)
+                }
+            } else {
+                //console.log("not found")
+                clist = cacheHandlers();
+                clist.add(loadCachedList);
+                self.connector.cache(cachekey, clist);
                 self.connector.branch.queryNodes({
                     _type: self.schema._relator.nodeType
                 }, {
                     "sort": {
                         "title": 1
                     }
-                }).each(function() {
-                    self.selectOptions.push({
-                        "value": this._doc,
-                        "text": this.title,
-                        "picked": {
-                            "id": this._doc,
-                            "ref": this.ref(this),
-                            "title": this.title,
-                            "qname": this.getQName(),
-                            "typeQName": this.getTypeQName(),
-                        }
-                    });
                 }).then(function() {
-                    callback();
+                    clist.list = [];
+                    this.each(function() {
+                        clist.list.push({
+                            "value": this._doc,
+                            "text": this.title,
+                            "picked": {
+                                "id": this._doc,
+                                "ref": this.ref(this),
+                                "title": this.title,
+                                "qname": this.getQName(),
+                                "typeQName": this.getTypeQName(),
+                            }
+                        });
+                    })
+                }).then(function() {
+                    clist.fire()
                 });
-            });
+            }
+        },
+
+        setupField: function(callback) {
+            var self = this;
+            this.base(function() {
+                self.loadCacheList(callback)
+            })
         }
 
     }));
