@@ -116,7 +116,8 @@ define(function(require, exports, module) {
                 }, {
                     "sort": {
                         "title": 1
-                    }
+                    },
+                    "limit": 50
                 }).then(function() {
                     clist.list = [];
                     this.each(function() {
