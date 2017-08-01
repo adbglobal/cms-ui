@@ -153,7 +153,8 @@ define(function(require, exports, module) {
                     "source": function(query, process) {
                         var array = [];
 
-                        return self.connector.branch.find({ query: { _type: self.schema._relator.nodeType }, search: { query_string: { query: self.getValueToText() + "*" } } }).each(function() {
+                        return self.connector.branch.find({ 
+                            query: { _type: {$in: [self.schema._relator.nodeType] }, search: { query_string: { query: self.getValueToText() + "*" } } }).each(function() {
                             array.push({
                                 "title": this.title,
                                 "value": this.title,
