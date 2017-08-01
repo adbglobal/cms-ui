@@ -154,7 +154,7 @@ define(function(require, exports, module) {
                         var array = [];
 
                         return self.connector.branch.find({ 
-                            query: { _type: {$in: [self.schema._relator.nodeType] }, search: { query_string: { query: self.getValueToText() + "*" } } }).each(function() {
+                            query: { _type: {$in: [self.schema._relator.nodeType] }}, search: { query_string: { query: self.getValueToText() + "*" } } }).each(function() {
                             array.push({
                                 "title": this.title,
                                 "value": this.title,
