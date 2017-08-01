@@ -85,28 +85,28 @@ define(function(require, exports, module) {
         <div class="row"> \
             <div class="col-md-2" id="1"> \
                 {{#each items}} \
-                    {{#compare options.column "left"}} \
+                    {{#compare options.column "1"}} \
                         {{#item}}{{/item}} \
                     {{/compare}} \
                 {{/each}}\
             </div>\
             <div class="col-md-2" id="2">\
                 {{#each items}} \
-                    {{#compare options.column "mid"}} \
+                    {{#compare options.column "2"}} \
                         {{#item}}{{/item}} \
                     {{/compare}} \
                 {{/each}}\
             </div>\
             <div class="col-md-4" id="3">\
                 {{#each items}} \
-                    {{#compare options.column "right"}} \
+                    {{#compare options.column "3"}} \
                         {{#item}}{{/item}} \
                     {{/compare}} \
                 {{/each}}\
             </div>\
             <div class="col-md-4" id="4">\
                 {{#each items}} \
-                    {{#compare options.column "right"}} \
+                    {{#compare options.column "4"}} \
                         {{#item}}{{/item}} \
                     {{/compare}} \
                 {{/each}}\
