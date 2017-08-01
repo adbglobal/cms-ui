@@ -79,10 +79,46 @@ define(function(require, exports, module) {
         </div>\
     </div>\
 </script>'
+    
+    var layout1122 = '<script type="text/x-handlebars-template">\
+    <div>\
+        <div class="row"> \
+            <div class="col-md-2" id="1"> \
+                {{#each items}} \
+                    {{#compare options.column "left"}} \
+                        {{#item}}{{/item}} \
+                    {{/compare}} \
+                {{/each}}\
+            </div>\
+            <div class="col-md-2" id="2">\
+                {{#each items}} \
+                    {{#compare options.column "mid"}} \
+                        {{#item}}{{/item}} \
+                    {{/compare}} \
+                {{/each}}\
+            </div>\
+            <div class="col-md-4" id="3">\
+                {{#each items}} \
+                    {{#compare options.column "right"}} \
+                        {{#item}}{{/item}} \
+                    {{/compare}} \
+                {{/each}}\
+            </div>\
+            <div class="col-md-4" id="4">\
+                {{#each items}} \
+                    {{#compare options.column "right"}} \
+                        {{#item}}{{/item}} \
+                    {{/compare}} \
+                {{/each}}\
+            </div>\
+        </div>\
+    </div>\
+</script>'
 
     Alpaca.registerTemplate("layout-1-1", layout11);
     Alpaca.registerTemplate("layout-1-1-2", layout112);
     Alpaca.registerTemplate("layout-1-1-1", layout111);
+    Alpaca.registerTemplate("layout-1-1-2-2", layout1122);
 
     Alpaca.registerDefaultFormatFieldMapping("layout-object", "layout-object");
 
