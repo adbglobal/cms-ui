@@ -156,7 +156,7 @@ define(function(require, exports, module) {
                         return self.connector.branch.find({
                             query: {
                                 _type: { $in: [self.schema._relator.nodeType] },
-                                "_features.f:multilingual": {}
+                                "_features.f:translation": { $exists: false }
                             },
                             search: {
                                 query_string: { query: self.getValueToText() + "*" }
