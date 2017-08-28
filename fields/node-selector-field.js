@@ -112,7 +112,8 @@ define(function(require, exports, module) {
                 clist.add(loadCachedList);
                 self.connector.cache(cachekey, clist);
                 self.connector.branch.queryNodes({
-                    _type: self.schema._relator.nodeType
+                    _type: self.schema._relator.nodeType,
+                    "_features.f:multilingual": {}
                 }, {
                     "sort": {
                         "title": 1
