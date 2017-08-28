@@ -71,7 +71,7 @@ define(function(require, exports, module) {
         loadCacheList: function(callback) {
             var self = this;
             var clist = null
-            var cachekey = "node-selector:" + self.schema._relator.nodeType
+            var cachekey = "node-selector:" + self.connector.branch.getUri() + self.schema._relator.nodeType
 
             function cacheHandlers() {
                 var callbacks = $.Callbacks("once")
