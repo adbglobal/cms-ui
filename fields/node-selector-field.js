@@ -113,7 +113,7 @@ define(function(require, exports, module) {
                 self.connector.cache(cachekey, clist);
                 self.connector.branch.queryNodes({
                     _type: self.schema._relator.nodeType,
-                    "_features.f:multilingual": {}
+                    "_features.f:translation": { $exists: false }
                 }, {
                     "sort": {
                         "title": 1
