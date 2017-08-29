@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:8000/tests/index.html",
+            "webRoot": "${workspaceRoot}",
+            "userDataDir": "${workspaceRoot}/.chrome",
+            "sourceMaps": true,
+            "runtimeArgs": [
+                "--disable-web-security"
+            ]
+        },
+        {
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "webRoot": "${workspaceRoot}"
+        }
+    ]
+}
