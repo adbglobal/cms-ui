@@ -96,6 +96,7 @@ define(function(require, exports, module) {
             }
 
             function loadCacheAttachments(node) {
+                //var t0 = performance.now();
                 if (self.options.isSlave) {
                     var masterSchema = {};
                     var masterOptions = {};
@@ -107,10 +108,15 @@ define(function(require, exports, module) {
                         loadCacheAttachment(masterOptions, node, 'options');
                         Object.assign(self.options, makeSlaveOptions(masterOptions))
                     }
-                    Alpaca.parallel([f1, f2], function() {})
+                    Alpaca.parallel([f1, f2], function() {
+                        //var t1 = performance.now();
+                        //console.log('Took', (t1 - t0).toFixed(4), 'milliseconds for loadCacheAttachments:', self.path);
+                    })
                 } else {
                     loadCacheAttachment(self.schema, node, 'schema');
                     loadCacheAttachment(self.options, node, 'options');
+                    //var t1 = performance.now();
+                    //console.log('Took', (t1 - t0).toFixed(4), 'milliseconds for loadCacheAttachments:', self.path);
                 }
             }
 
@@ -139,6 +145,7 @@ define(function(require, exports, module) {
 
             var self = this;
             var cacheKey = "command-field:" + nodeId;
+            //var t0 = performance.now();
             //console.log(self.name, ": ", cacheKey)
             clist = self.connector.cache(cacheKey);
             if (clist) {
@@ -158,6 +165,8 @@ define(function(require, exports, module) {
                     clist.node = this;
                     loadCacheAttachments(this)
                 }).then(function() {
+                    //var t1 = performance.now();
+                    //console.log('Took', (t1 - t0).toFixed(4), 'milliseconds to load node:', self.path);
                     clist.fire()
                 })
             }
@@ -171,7 +180,12 @@ define(function(require, exports, module) {
                     if (self.top && self.top() && self.top().initializing) {
                         // if we're rendering under a top most control that isn't finished initializing, then don't refresh
                     } else {
-                        self.refresh();
+                        //var t0 = performance.now();
+                        //console.log("refreshing ", self.path)
+                        self.refresh(function() {
+                            //var t1 = performance.now();
+                            //console.log('Took', (t1 - t0).toFixed(4), 'milliseconds to refresh:', self.path);
+                        });
                     }
                 }
             }

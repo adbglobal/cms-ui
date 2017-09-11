@@ -1,38 +1,31 @@
-require.config({
-    "packages": [{
-            "name": "jquery",
-            "location": "../../../lib/jquery/dist",
-            "main": "jquery.min"
-        },
-        {
-            "name": "handlebars",
-            "location": "../../../lib/handlebars",
-            "main": "handlebars"
-        },
-        {
-            "name": "bootstrap",
-            "location": "../../../lib/bootstrap/dist/js",
-            "main": "bootstrap"
-        },
-        {
-            "name": "alpaca",
-            "location": "../../../lib/alpaca/bootstrap",
-            "main": "alpaca"
-        },
-        {
-            "name": "form",
-            "main": "../form"
-        }
-    ],
-    "shim": {
-        "bootstrap": ["jquery"],
-        "jquery": [],
-        "handlebars": {
-            "exports": "Handlebars"
-        }
-    }
-});
+define(function(require) {
 
-require(["form"], function() {
-    // all done
+    // page: "sample-products-list"
+    //require("./gadgets/sample-products-list/sample-products-list.js");
+
+    // dashlet: "sample-random-product-dashlet"
+    //require("./gadgets/sample-random-product-dashlet/sample-random-product-dashlet.js");
+
+    // action: "create-sample-space"
+    //require("./actions/sample/create-sample-space.js");
+
+    // sample form fields
+    require("../mock-ui.js")
+    require("../related-content.js")
+    require("../vendor/typeahead.js/dist/typeahead.bundle.js")
+    require("../../fields/layout-object.js");
+    require("../../fields/content-typeahead.js");
+    require("../../fields/command-field.js");
+    require("../../fields/node-selector-field.js");
+    require("../../fields/slave-array.js");
+    require("../../fields/lodash.js");
+    require("../../fields/adb-summernote.js");
+    require("../../fields/image-summernote.js");
+
+    // sample override to document-properties
+    //require("./gadgets/sample-product-document-properties/sample-product-document-properties.js");
+
+    // global CSS overrides
+    //require("css!./styles/sample.css");
+
 });

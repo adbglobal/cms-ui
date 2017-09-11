@@ -2,6 +2,7 @@ define(function(require, exports, module) {
 
     var UI = require("ui");
     var Alpaca = require("alpaca");
+    var Handlebars = require("handlebars")
 
     /**
      * Defines a Content picker field that populates a select field with the results of a query into Cloud CMS

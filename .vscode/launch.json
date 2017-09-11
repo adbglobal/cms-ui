@@ -8,6 +8,8 @@
             "webRoot": "${workspaceRoot}",
             "userDataDir": "${workspaceRoot}/.chrome",
             "sourceMaps": true,
+            "disableNetworkCache": true,
+            "showAsyncStacks": true,
             "runtimeArgs": [
                 "--disable-web-security"
             ]
