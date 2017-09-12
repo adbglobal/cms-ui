@@ -27,4 +27,4 @@ cd ..
 python -m SimpleHTTPServer
 
 
-start debugger in vs codee
+start debugger in vs code
