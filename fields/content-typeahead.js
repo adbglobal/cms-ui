@@ -156,8 +156,8 @@ define(function(require, exports, module) {
 
                         return self.connector.branch.find({
                             query: {
-                                "_type": { $in: [self.schema._relator.nodeType] },
-                                "title": {"$regex":self.getValueToText()},
+                                "_type": { "$in": [self.schema._relator.nodeType] },
+                                "title": { "$regex":self.getValueToText() },
                                 "_features.f:translation": { "$exists": false }
                             }
                         }).each(function() {
