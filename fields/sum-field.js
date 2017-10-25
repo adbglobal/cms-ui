@@ -9,7 +9,7 @@ define(function (require/*, exports, module*/) {
             return "sum";
         },
         setValue: function (value) {
-            value = this.getSum(value);
+            value = this.getSum();
             this.base(value);
         },
         postRender: function (control) {
