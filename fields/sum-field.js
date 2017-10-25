@@ -5,38 +5,46 @@ define(function (require/*, exports, module*/) {
     // const $ = require("jquery");
 
     return UI.registerField("sum", Alpaca.Fields.NumberField.extend({
-        dependencyFields: [],
         getFieldType: function () {
             return "sum";
         },
         setValue: function (value) {
-            value = value || 0;
-            const dependencies = this.options.dependences || [];
-            dependencies.forEach(name => {
-                value += this.getDependencyValue(name);
-            });
+            value = this.getSum(value);
             this.base(value);
-        },
-        getDependencyValue: function (name, context) {
-            context = context || this;
-            if (!context.parent) {
-                return 0;
-            }
-            if (context.parent.options.fields[name]) {
-                const field = context.parent.children.find(field => field.propertyId === name);
-                if (field) {
-                    this.dependencyFields.push(field);
-                    return field.getValue() || 0;
-                }
-                return 0
-            }
-            return this.getDependencyValue(name, context.parent);
         },
         postRender: function (control) {
             Alpaca.Fields.NumberField.prototype.postRender.call(this, control);
-            this.dependencyFields.forEach(field => {
+            this.getDependencyFields().forEach(field => {
                 field.on('change', value => this.setValue())
             });
+        },
+        getDependencyFields: function () {
+            const fields = [];
+            const dependencies = this.options.dependences || [];
+            dependencies.forEach(name => {
+                const field = this.getDependencyField(name);
+                if (field) {
+                    fields.push(field);
+                }
+            });
+            return fields;
+        },
+        getDependencyField: function (name, context) {
+            context = context || this;
+            if (!context.parent) {
+                return null;
+            }
+            if (context.parent.options.fields[name]) {
+                return context.parent.children.find(field => field.propertyId === name);
+            }
+            return null;
+        },
+        getSum: function (value) {
+            value = value || 0;
+            this.getDependencyFields().forEach(field => {
+                value += field.getValue() || 0;
+            });
+            return value;
         }
     }))
 });
