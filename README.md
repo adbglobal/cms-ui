@@ -4,7 +4,7 @@ to run local tests:
 
 cd tests
 
-(sudo) nom install bower -g
+(sudo) npm install bower -g
 
 bower install
 

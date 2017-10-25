@@ -16,6 +16,7 @@ define(function(require) {
     require("../../fields/layout-object.js");
     require("../../fields/content-typeahead.js");
     require("../../fields/command-field.js");
+    require("../../fields/sum-field.js");
     require("../../fields/node-selector-field.js");
     require("../../fields/slave-array.js");
     require("../../fields/lodash.js");

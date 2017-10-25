@@ -63,6 +63,8 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
                         "column": "mid"
                     },
                     "totalTime": {
+                        "type": "sum-field",
+                        "dependences": ["cookTime", "prepTime", "quantity"],
                         "column": "right",
                         "readonly": true
                     }
@@ -2321,7 +2323,7 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
         },
         "schema": schema,
         // "schemaSource": "ioCentro:multiRecipe",
-        "data": dataWithCommands, // choose one data from constant above
+        "data": dataNoCommand, // choose one data from constant above
         // "dataSource": "dd280a33360a4e554f94",  // source from => http://iot-dev-2.adbitaly.com/#/projects/bc8cc6ec71977b5b0dab/documents/dd280a33360a4e554f94
         "options": options, // => local configuration defined above
         // "optionsSource": "MultiRecipe", // => remote link to a form in the CMS, for more details see http://alpacajs.org/docs/api/connectors.html
