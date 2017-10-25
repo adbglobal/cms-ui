@@ -63,7 +63,7 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
                         "column": "mid"
                     },
                     "totalTime": {
-                        "type": "sum-field",
+                        "type": "sum",
                         "dependences": ["cookTime", "prepTime", "quantity"],
                         "column": "right",
                         "readonly": true

@@ -4,10 +4,10 @@ define(function (require/*, exports, module*/) {
     const Alpaca = require("alpaca");
     // const $ = require("jquery");
 
-    return UI.registerField("sum-field", Alpaca.Fields.NumberField.extend({
+    return UI.registerField("sum", Alpaca.Fields.NumberField.extend({
         dependencyFields: [],
         getFieldType: function () {
-            return "sum-field";
+            return "sum";
         },
         setValue: function (value) {
             value = value || 0;
@@ -26,8 +26,9 @@ define(function (require/*, exports, module*/) {
                 const field = context.parent.children.find(field => field.propertyId === name);
                 if (field) {
                     this.dependencyFields.push(field);
+                    return field.getValue() || 0;
                 }
-                return field.getValue() || 0
+                return 0
             }
             return this.getDependencyValue(name, context.parent);
         },
