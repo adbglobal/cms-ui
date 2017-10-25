@@ -5,6 +5,7 @@ define(function (require/*, exports, module*/) {
     // const $ = require("jquery");
 
     return UI.registerField("sum-field", Alpaca.Fields.NumberField.extend({
+        dependencyFields: [],
         getFieldType: function () {
             return "sum-field";
         },
@@ -22,40 +23,19 @@ define(function (require/*, exports, module*/) {
                 return 0;
             }
             if (context.parent.options.fields[name]) {
-                return context.parent.children.find(field => field.propertyId === name).getValue() || 0
+                const field = context.parent.children.find(field => field.propertyId === name);
+                if (field) {
+                    this.dependencyFields.push(field);
+                }
+                return field.getValue() || 0
             }
             return this.getDependencyValue(name, context.parent);
-        }/*,
-        getFieldValue: function (name, context) {
-            context = context || this;
-            if (context.parent) {
-                return this.getFieldValue(name, context.parent)
-            }
-            const instances = context.allFieldInstances();
-            for (const key in instances) {
-                if (instances.hasOwnProperty(key)) {
-                    const field = instances[key];
-                    console.log(field.propertyId);
-                    if (field.propertyId === name) {
-                        return field.getValue()
-                    }
-                }
-            }
         },
-        findFieldValue: function (name, context) {
-            context = context || this;
-            if (context.propertyId === name){
-                return context.getValue()
-            }
-            if (!context.children) {
-                return
-            }
-            for (const child of context.children) {
-                const value = this.findFieldValue(name, child);
-                if (value) {
-                    return Number(value)
-                }
-            }
-        }*/
+        postRender: function (control) {
+            Alpaca.Fields.NumberField.prototype.postRender.call(this, control);
+            this.dependencyFields.forEach(field => {
+                field.on('change', value => this.setValue())
+            });
+        }
     }))
 });
