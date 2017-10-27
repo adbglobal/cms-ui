@@ -21,14 +21,24 @@ define(function(require/*, exports, module*/) {
             };
             this.base();
         },
+        /**
+         * render
+         * @override
+         * @param view
+         * @param callback
+         *
+         * Call parent render function and listener to the html field to override paste user action
+         */
         render: function (view, callback) {
             Alpaca.Fields.SummernoteField.prototype.render.call(this, view, callback);
-            this.field[0].addEventListener('paste', function(e) {
-                console.log('AdbSummerNote', 'Past plain text');
-                e.preventDefault();
-                const text = e.clipboardData.getData("text/plain");
-                document.execCommand("insertText", true, text);
-            });
+
+            if (this.field && this.field.length > 0) {
+                this.field[0].addEventListener('paste', function (e) {
+                    e.preventDefault();
+                    const text = e.clipboardData.getData("text/plain");
+                    document.execCommand("insertText", true, text);
+                })
+            }
         }
     }))
 });
