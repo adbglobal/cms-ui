@@ -1,7 +1,7 @@
-define(function(require, exports, module) {
+define(function(require/*, exports, module*/) {
 
-    var UI = require("ui");
-    var Alpaca = require("alpaca");
+    const UI = require("ui");
+    const Alpaca = require("alpaca");
 
     return UI.registerField("adb-summernote", Alpaca.Fields.SummernoteField.extend({
         setup: function() {
@@ -18,8 +18,13 @@ define(function(require, exports, module) {
                 minHeight: null,
                 maxHeight: null,
                 focus: true
-            }
-            this.base()
+            };
+            this.domEl.on('past', function(e) {
+                e.preventDefault();
+                const text = e.clipboardData.getData("text/plain");
+                document.execCommand("insertText", true, text);
+            });
+            this.base();
         }
     }))
-})
+});
