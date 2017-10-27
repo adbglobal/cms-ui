@@ -19,12 +19,16 @@ define(function(require/*, exports, module*/) {
                 maxHeight: null,
                 focus: true
             };
-            this.domEl.on('past', function(e) {
+            this.base();
+        },
+        render: function (view, callback) {
+            Alpaca.Fields.SummernoteField.prototype.render.call(this, view, callback);
+            this.field[0].addEventListener('paste', function(e) {
+                console.log('AdbSummerNote', 'Past plain text');
                 e.preventDefault();
                 const text = e.clipboardData.getData("text/plain");
                 document.execCommand("insertText", true, text);
             });
-            this.base();
         }
     }))
 });
