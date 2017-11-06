@@ -1,4 +1,4 @@
-define(function(require) {
+define(function (require) {
 
     // page: "sample-products-list"
     //require("./gadgets/sample-products-list/sample-products-list.js");
@@ -10,9 +10,9 @@ define(function(require) {
     //require("./actions/sample/create-sample-space.js");
 
     // sample form fields
-    require("../mock-ui.js")
-    require("../related-content.js")
-    require("../vendor/typeahead.js/dist/typeahead.bundle.js")
+    require("../mock-ui.js");
+    require("../related-content.js");
+    require("../vendor/typeahead.js/dist/typeahead.bundle.js");
     require("../../fields/layout-object.js");
     require("../../fields/content-typeahead.js");
     require("../../fields/command-field.js");
@@ -22,6 +22,7 @@ define(function(require) {
     require("../../fields/lodash.js");
     require("../../fields/adb-summernote.js");
     require("../../fields/image-summernote.js");
+    require("../../fields/multi-select.js");
 
     // sample override to document-properties
     //require("./gadgets/sample-product-document-properties/sample-product-document-properties.js");

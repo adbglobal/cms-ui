@@ -19,6 +19,7 @@ define(function(require) {
     require("./fields/lodash.js");
     require("./fields/adb-summernote.js");
     require("./fields/image-summernote.js");
+    require("./fields/multi-select.js");
 
     // sample override to document-properties
     //require("./gadgets/sample-product-document-properties/sample-product-document-properties.js");

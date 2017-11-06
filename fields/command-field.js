@@ -183,7 +183,7 @@ define(function (require/*, exports, module*/) {
         setupField: function (callback) {
             const self = this;
 
-            console.log("Setup field", self.name);
+            // console.log("Setup field", self.name);
             function refresh() {
                 if (!self.initializing) {
                     if (self.top && self.top() && self.top().initializing) {
