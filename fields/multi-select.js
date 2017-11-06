@@ -13,6 +13,10 @@ define(function (require/*, exports, module*/) {
 
         getValue: function (value) {
             return this.data;
+        },
+
+        _validateEnum: function () {
+            return true
         }
 
     }))
