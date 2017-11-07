@@ -164,9 +164,6 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
                         }
                     }
                 }
-            },
-            "multiSelect": {
-                "type": "multi-select"
             }
         },
         "fields": {
@@ -358,7 +355,6 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
                 "bindings": {
                     "title": "top",
                     "description": "top",
-                    "multiSelect": "top",
                     "method": "left",
                     "image": "left",
                     "relatedRecipes": "right",
@@ -1091,11 +1087,6 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
             }
         },
         "fields": {
-            "multiSelect": {
-                "type": "multi-select",
-                "multiple": true,
-                "removeDefaultNone": true
-            },
             "description": {
                 "type": "adb-summernote"
             },
@@ -1304,7 +1295,6 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
                 "bindings": {
                     "title": "top",
                     "description": "top",
-                    "multiSelect": "top",
                     "method": "left",
                     "relatedRecipes": "right",
                     "thumbnailImage": "left",
@@ -1541,18 +1531,6 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
                     }
                 },
                 "$ref_resolved": "#/definitions/recipeVariant"
-            },
-            "multiSelect": {
-                "title": "Multi Select",
-                "type": "array",
-                "enum": [
-                    "value 1",
-                    "value 2",
-                    "value 3",
-                    "value 4",
-                    "value 5",
-                ],
-                "$ref_resolved": "#/definitions/multiSelect"
             }
         },
         "properties": {
@@ -1570,9 +1548,6 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
             "description": {
                 "type": "string",
                 "title": "Summary"
-            },
-            "multiSelect": {
-                "$ref": "#/definitions/multiSelect"
             },
             "relatedRecipes": {
                 "type": "array",
@@ -2357,16 +2332,6 @@ define(["jquery", "gitana", "alpaca", "bootstrap", "cms-ui"], function ($) {
             }
         },
         "properties": {
-            "multiSelect": {
-                "type": "string",
-                "title": "Enum Select",
-                "enum": [
-                    "IT",
-                    "DE",
-                    "FR",
-                    "EN"
-                ]
-            },
             "brand": {
                 "title": "Brand",
                 "type": "object",
