@@ -23,6 +23,8 @@ define(function (require) {
     require("../../fields/adb-summernote.js");
     require("../../fields/image-summernote.js");
     require("../../fields/adb-number.js");
+    require("./fields/session-select.js");
+    require("./fields/node-selector-session-field.js");
 
     // sample override to document-properties
     //require("./gadgets/sample-product-document-properties/sample-product-document-properties.js");
