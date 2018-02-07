@@ -36,7 +36,10 @@ define(function(require, exports, module) {
                     var node = this;
                     readAsArrayBuffer(file).then(function(data) {
                         node.attach("default", mimetype, data, file.name).then(function() {
-                            $(el).summernote('editor.insertImage', "/proxy" + node.getUri() + "/attachments/default");
+                            const baseUrl = window.location.origin + '/static',
+                                nodeUrl = node.getRepositoryId() + '-' + node.getBranchId() + '-' + node._doc + '-default?' +
+                                    'repository=' + node.getRepositoryId() + '&branch=' + node.getBranchId() + '&node=' + node._doc + '&attachment=default';
+                            $(el).summernote('editor.insertImage', baseUrl + nodeUrl);
                         })
                     })
                 })
