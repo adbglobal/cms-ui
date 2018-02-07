@@ -50,17 +50,14 @@ define(function (require) {
                     .error(function () {
                         self.connector.branch.searchNodes(file.name)
                             .then(function () {
-                                const node = this;
-                                readAsArrayBuffer(file)
-                                    .then(function (data) {
-                                        node.attach("default", mimetype, data, file.name)
-                                            .then(function () {
-                                                const baseUrl = window.location.origin + '/static/',
-                                                    nodeUrl = node.getRepositoryId() + '-' + node.getBranchId() + '-' + node._doc + '-default?' +
-                                                        'repository=' + node.getRepositoryId() + '&branch=' + node.getBranchId() + '&node=' + node._doc + '&attachment=default';
-                                                $(el).summernote('editor.insertImage', baseUrl + nodeUrl);
-                                            })
-                                    })
+                                const node = this,
+                                    baseUrl = window.location.origin + '/static/',
+                                    repositoryId = node.getRepositoryId(),
+                                    branchId = node.getBranchId(),
+                                    nodeId = Object.keys(node.json())[0],
+                                    nodeUrl = repositoryId + '-' + branchId + '-' + nodeId + '-default?' +
+                                        'repository=' + repositoryId + '&branch=' + branchId + '&node=' + nodeId + '&attachment=default';
+                                $(el).summernote('editor.insertImage', baseUrl + nodeUrl);
                             })
                     })
             }
