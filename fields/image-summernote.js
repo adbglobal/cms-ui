@@ -45,11 +45,8 @@ define(function (require) {
                                                 'repository=' + node.getRepositoryId() + '&branch=' + node.getBranchId() + '&node=' + node._doc + '&attachment=default';
                                         $(el).summernote('editor.insertImage', baseUrl + nodeUrl);
                                     })
-                                    .catch(error => console.error('Error on attach', error))
                             })
-                            .catch(error => console.error('Error on read buffer', error))
                     })
-                    .catch(error => console.error('Error on create node', error))
             }
 
             this.options["summernote"] = {
