@@ -1,60 +1,67 @@
-define(function(require, exports, module) {
+define(function (require) {
 
-    var UI = require("ui");
-    var Alpaca = require("alpaca");
+    const UI = require("ui");
+    const Alpaca = require("alpaca");
 
     return UI.registerField("image-summernote", Alpaca.Fields.SummernoteField.extend({
-        setup: function() {
-            var self = this;
+        setup: function () {
+            const self = this;
 
             function sendFile(file, el) {
-                var readAsArrayBuffer = function(file) {
-                    return $.Deferred(function(deferred) {
+                const readAsArrayBuffer = function (file) {
+                    return $.Deferred(function (deferred) {
                         $.extend(new FileReader(), {
-                            onload: function(e) {
-                                var data = e.target.result;
-                                deferred.resolve(data);
+                            onload: function (e) {
+                                console.log('On load deferred file reader', this);
+                                deferred.resolve(e.target.result);
                             },
-                            onerror: function() {
+                            onerror: function () {
+                                console.error('On error deferred file reader', this);
                                 deferred.reject(this);
                             }
                         }).readAsArrayBuffer(file);
                     }).promise();
                 };
 
-                var listNode = self.connector.branch.queryOne({
-                    "_type": "n:list",
-                    "listKey": "images"
-                })
-                var mimetype = file.type;
+                // const listNode = self.connector.branch.queryOne({
+                //     "_type": "n:list",
+                //     "listKey": "images"
+                // });
+                const mimetype = file.type;
                 self.connector.branch.createNode({
                     "title": file.name,
                     "_type": "ioCentro:webviewImage"
                 }, {
                     "folderpath": "/content/webviewImages"
-                }).then(function() {
-                    var node = this;
-                    readAsArrayBuffer(file).then(function(data) {
-                        node.attach("default", mimetype, data, file.name).then(function() {
-                            const baseUrl = window.location.origin + '/static/',
-                                nodeUrl = node.getRepositoryId() + '-' + node.getBranchId() + '-' + node._doc + '-default?' +
-                                    'repository=' + node.getRepositoryId() + '&branch=' + node.getBranchId() + '&node=' + node._doc + '&attachment=default';
-                            $(el).summernote('editor.insertImage', baseUrl + nodeUrl);
-                        })
-                    })
                 })
+                    .then(function () {
+                        const node = this;
+                        readAsArrayBuffer(file)
+                            .then(function (data) {
+                                node.attach("default", mimetype, data, file.name)
+                                    .then(function () {
+                                        const baseUrl = window.location.origin + '/static/',
+                                            nodeUrl = node.getRepositoryId() + '-' + node.getBranchId() + '-' + node._doc + '-default?' +
+                                                'repository=' + node.getRepositoryId() + '&branch=' + node.getBranchId() + '&node=' + node._doc + '&attachment=default';
+                                        $(el).summernote('editor.insertImage', baseUrl + nodeUrl);
+                                    })
+                                    .catch(error => console.error('Error on attach', error))
+                            })
+                            .catch(error => console.error('Error on read buffer', error))
+                    })
+                    .catch(error => console.error('Error on create node', error))
             }
 
             this.options["summernote"] = {
                 callbacks: {
-                    onImageUpload: function(files, editor, welEditable) {
-                        for (var i = files.length - 1; i >= 0; i--) {
+                    onImageUpload: function (files, editor, welEditable) {
+                        for (let i = files.length - 1; i >= 0; i--) {
                             sendFile(files[i], this);
                         }
                     }
                 }
-            }
+            };
             this.base()
         }
     }))
-})
+});
