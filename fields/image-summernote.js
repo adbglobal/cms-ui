@@ -47,6 +47,22 @@ define(function (require) {
                                     })
                             })
                     })
+                    .error(function () {
+                        self.connector.branch.searchNodes(file.name)
+                            .then(function () {
+                                const node = this;
+                                readAsArrayBuffer(file)
+                                    .then(function (data) {
+                                        node.attach("default", mimetype, data, file.name)
+                                            .then(function () {
+                                                const baseUrl = window.location.origin + '/static/',
+                                                    nodeUrl = node.getRepositoryId() + '-' + node.getBranchId() + '-' + node._doc + '-default?' +
+                                                        'repository=' + node.getRepositoryId() + '&branch=' + node.getBranchId() + '&node=' + node._doc + '&attachment=default';
+                                                $(el).summernote('editor.insertImage', baseUrl + nodeUrl);
+                                            })
+                                    })
+                            })
+                    })
             }
 
             this.options["summernote"] = {
