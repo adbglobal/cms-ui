@@ -27,7 +27,8 @@ define(function (require) {
             this.initialize = function() {
                 // append your modal basic html here
                 // like:
-                this.$mymodal = $('body').append('<div class="modal fade">... inner html ...</div>')
+                $('body').append('<div class="modal fade" id="mymodal">... inner html ...</div>');
+                this.$mymodal = $('#mymodal');
             };
 
             this.destroy = function() {
