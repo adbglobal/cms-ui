@@ -26,12 +26,13 @@ define(function (require) {
                 "_type": "n:list",
                 "listKey": "images"
             });
-            self.connector.branch.createNode({
+            const promise = self.connector.branch.createNode({
                 "title": file.name,
                 "_type": "ioCentro:webviewImage"
             }, {
                 "folderpath": "/content/webviewImages"
-            }).then(function () {
+            });
+            promise.then(function () {
                 const node = this;
                 self.readAsArrayBuffer(file).then(function (data) {
                     node.attach("default", mimetype, data, file.name).then(function () {
@@ -41,7 +42,10 @@ define(function (require) {
                         $(el).summernote('editor.insertImage', baseUrl + nodeUrl);
                     })
                 })
-            })
+            });
+            promise.trap(function () {
+                console.error("Errore!!", arguments)
+            });
         },
 
         readAsArrayBuffer: function (file) {
