@@ -2,41 +2,6 @@ define(function (require) {
 
     const UI = require("ui");
     const Alpaca = require("alpaca");
-    const $ = require("jquery");
-
-    $.extend($.summernote.plugins, {
-
-        'modal': function(context) {
-            const self = this;
-            const ui = $.summernote.ui;
-
-            context.memo('button.mymodal', function() {
-                const button = ui.button({
-                    contents: '<i class="fa fa-child"/> my modal',
-                    tooltip: 'my modal',
-                    click: function() {
-                        // call bootstrap method
-                        self.$mymodal.modal('show');
-                    }
-                });
-
-                // create jQuery object from button instance.
-                return button.render();
-            });
-
-            this.initialize = function() {
-                // append your modal basic html here
-                // like:
-                $('body').append('<div class="modal fade" id="mymodal">... inner html ...</div>');
-                this.$mymodal = $('#mymodal');
-            };
-
-            this.destroy = function() {
-                // remove your modal basic html here
-                this.$mymodal.remove();
-            };
-        }
-    });
 
     return UI.registerField("image-summernote", Alpaca.Fields.SummernoteField.extend({
         setup: function () {
@@ -49,10 +14,7 @@ define(function (require) {
                             self.sendFile(files[i], this);
                         }
                     }
-                },
-                toolbar: [
-                    ['custom', ['mymodal']]
-                ]
+                }
             };
             this.base()
         },
