@@ -43,8 +43,8 @@ define(function (require) {
                     })
                 })
             });
-            promise.error(function () {
-                console.error("Errore!!", arguments)
+            promise.trap(function (e) {
+                console.error("Trapped Error", e);
             });
         },
 
