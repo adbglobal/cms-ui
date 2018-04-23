@@ -209,13 +209,13 @@ define(function (require/*, exports, module*/) {
                             self.subscribed = true;
                             self.subscribe(dep, function (value) {
                                 if (value) {
-                                    const id = Alpaca.isArray(value)? value[0].id: value.id;
+                                    const id = Alpaca.isArray(value)? self.getIdOfField(value[0]): self.getIdOfField(value);
                                     self.updateSchemaOptions(id, refresh)
                                 }
                             });
                         }
                         if (dep.data) {
-                            const id = Alpaca.isArray(dep.data)? dep.data[0].id: dep.data.id;
+                            const id = Alpaca.isArray(dep.data)? self.getIdOfField(dep.data[0]): self.getIdOfField(dep.data);
                             self.updateSchemaOptions(id, refresh)
                         }
                     }
@@ -227,12 +227,12 @@ define(function (require/*, exports, module*/) {
                             self.subscribed = true;
                             self.subscribe(dep, function (value) {
                                 if (value) {
-                                    const id = Alpaca.isArray(value) ? value[0].id : value.id;
+                                    const id = Alpaca.isArray(value) ? self.getIdOfField(value[0]) : self.getIdOfField(value);
                                     self.updateSchemaOptions(id, refresh)
                                 }
                             });
                         }
-                        const id = Alpaca.isArray(dep.data) ? dep.data[0].id : dep.data.id;
+                        const id = Alpaca.isArray(dep.data) ? self.getIdOfField(dep.data[0]) : self.getIdOfField(dep.data);
                         self.updateSchemaOptions(id, callback)
                     });
                 } else {
@@ -254,6 +254,16 @@ define(function (require/*, exports, module*/) {
             if (value.hasOwnProperty('deviceCommandCode') && this.data.hasOwnProperty('deviceCommandCode') && this.schema) {
                 this.checkSchema(value, this.data, this.schema);
             }
+        },
+
+        getIdOfField: function(valueObj){
+            var ret = null;
+
+            if(valueObj){
+                ret = valueObj.id || valueObj.value;
+            }
+
+            return ret;
         },
 
         checkSchema: function (src, data, schema) {
