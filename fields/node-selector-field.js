@@ -144,9 +144,10 @@ define(function(require, exports, module) {
 
         setupField: function(callback) {
             var self = this;
-            this.base(function() {
+            this.base();
+            /*this.base(function() {
                // self.loadCacheList(callback)
-            })
+            })*/
         }
 
     }));
