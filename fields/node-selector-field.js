@@ -146,7 +146,7 @@ define(function(require, exports, module) {
 
         setupField: function(callback) {
             var self = this;
-            this.base(callback);
+           // this.base(callback);
             this.base(function() {
                 self.loadCacheList(callback)
             })
