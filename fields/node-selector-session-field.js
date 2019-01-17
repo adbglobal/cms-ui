@@ -97,7 +97,7 @@ define(function(require, exports, module) {
             }
 
             clist = undefined;// self.connector.cache(cachekey);
-            console.log("no cache search",cachekey);
+            console.log("no cache search session",cachekey);
             
             if (clist) {
                 if (clist.list) {
@@ -144,13 +144,15 @@ define(function(require, exports, module) {
                 }).then(function() {
                     clist.fire()
                 });
+
+
             }
         },
 
         setupField: function(callback) {
             var self = this;
             this.base(function() {
-                self.loadCacheList(callback)
+                //self.loadCacheList(callback)
             })
         }
 
