@@ -112,7 +112,7 @@ define(function(require, exports, module) {
                 //console.log("not found")
                 clist = cacheHandlers();
                 clist.add(loadCachedList);
-                self.connector.cache(cachekey, clist);
+               /* self.connector.cache(cachekey, clist);
                 self.connector.branch.queryNodes({
                     _type: self.schema._relator.nodeType,
                     "_features.f:translation": { $exists: false }
@@ -138,16 +138,17 @@ define(function(require, exports, module) {
                     })
                 }).then(function() {
                     clist.fire()
-                });
+                });*/
+                clist.fire()
             }
         },
 
         setupField: function(callback) {
             var self = this;
             this.base(callback);
-            /*this.base(function() {
-               // self.loadCacheList(callback)
-            })*/
+            this.base(function() {
+                self.loadCacheList(callback)
+            })
         }
 
     }));
