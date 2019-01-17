@@ -111,7 +111,7 @@ define(function(require, exports, module) {
             } else {
                 //console.log("not found")
                 clist = cacheHandlers();
-                clist.add(loadCachedList);
+                //clist.add(loadCachedList);
                /* self.connector.cache(cachekey, clist);
                 self.connector.branch.queryNodes({
                     _type: self.schema._relator.nodeType,
