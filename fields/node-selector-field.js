@@ -97,7 +97,7 @@ define(function(require, exports, module) {
             }
 
            clist = undefined;// self.connector.cache(cachekey);
-            console.log("no cache search",cachekey);
+            console.log("  cache search",cachekey,self.connector.cache(cachekey));
             //  clist = self.connector.cache(cachekey);
             //console.log(self.name, ": ", cachekey)
             if (clist) {
@@ -111,8 +111,9 @@ define(function(require, exports, module) {
             } else {
                 //console.log("not found")
                 clist = cacheHandlers();
-                //clist.add(loadCachedList);
-               /* self.connector.cache(cachekey, clist);
+                clist.add(loadCachedList);
+                self.connector.cache(cachekey, clist);
+                console.log(" out cache search",cachekey,self.connector.cache(cachekey));
                 self.connector.branch.queryNodes({
                     _type: self.schema._relator.nodeType,
                     "_features.f:translation": { $exists: false }
@@ -138,8 +139,8 @@ define(function(require, exports, module) {
                     })
                 }).then(function() {
                     clist.fire()
-                });*/
-                clist.fire()
+                });
+                
             }
         },
 
