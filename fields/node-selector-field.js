@@ -97,7 +97,7 @@ define(function(require, exports, module) {
             }
 
            clist = undefined;// self.connector.cache(cachekey);
-            console.log("  cache search",cachekey,self.connector.cache(cachekey));
+            console.log("test log");
             //  clist = self.connector.cache(cachekey);
             //console.log(self.name, ": ", cachekey)
             if (clist) {
