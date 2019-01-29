@@ -14,6 +14,7 @@ define(function(require/*, exports, module*/) {
                     ["para", ["ul", "ol", "paragraph"]],
                     ["height", ["height"]]
                 ],
+                disableDragAndDrop: true,
                 height: null,
                 minHeight: null,
                 maxHeight: null,
