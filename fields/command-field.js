@@ -268,19 +268,22 @@ define(function (require/*, exports, module*/) {
 
         checkSchema: function (src, data, schema) {
             if (schema && schema.hasOwnProperty('properties')) {
+                console.log('before : src', src);
+                console.log('before : data', data);
+                console.log('before : schema', schema);
                 for (const key in src) {
                     if (src.hasOwnProperty(key) && data.hasOwnProperty(key)) {
                         const properties = schema.properties[key];
                         if (typeof src[key] === 'object') {
-                            console.log('checkSchema : src[key]', src[key]);
-                            console.log('checkSchema : data[key]', data[key]);
-                            console.log('checkSchema : properties', properties);
                             this.checkSchema(src[key], data[key], properties);
                         } else if (data[key] && src[key] !== data[key] && properties.isVariant) {
                             src[key] = data[key];
                         }
                     }
                 }
+                console.log('after : src', src);
+                console.log('after : data', data);
+                console.log('after : schema', schema);
             }
         }
     }));
