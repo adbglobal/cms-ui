@@ -272,7 +272,10 @@ define(function (require/*, exports, module*/) {
                 for (const key in src) {
                     if (src.hasOwnProperty(key) && data.hasOwnProperty(key)) {
                         const properties = schema.properties[key];
+                        console.log('src[key]',src[key]);
+                        console.log('key',key);
                         if (typeof src[key] === 'object') {
+                            
                             this.checkSchema(src[key], data[key], properties);
                         } else if (data[key] && src[key] !== data[key] && properties.isVariant) {
                             src[key] = data[key];
