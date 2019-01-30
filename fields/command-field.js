@@ -244,6 +244,7 @@ define(function (require/*, exports, module*/) {
         },
 
         setValue: function (value) {
+            console.log('setValue : value', value);
             if (!Alpaca.isEmpty(value)) {
                 this.checkApplianceCommand(value);
             }
@@ -268,9 +269,6 @@ define(function (require/*, exports, module*/) {
 
         checkSchema: function (src, data, schema) {
             if (schema && schema.hasOwnProperty('properties')) {
-                console.log('before : src', src);
-                console.log('before : data', data);
-                console.log('before : schema', schema);
                 for (const key in src) {
                     if (src.hasOwnProperty(key) && data.hasOwnProperty(key)) {
                         const properties = schema.properties[key];
