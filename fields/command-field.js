@@ -267,6 +267,9 @@ define(function (require/*, exports, module*/) {
         },
 
         checkSchema: function (src, data, schema) {
+            console.log('checkSchema : src', src);
+            console.log('checkSchema : data', data);
+            console.log('checkSchema : schema', schema);
             if (schema && schema.hasOwnProperty('properties')) {
                 for (const key in src) {
                     if (src.hasOwnProperty(key) && data.hasOwnProperty(key)) {
