@@ -67,8 +67,9 @@ define(function (require/*, exports, module*/) {
                                 let chdKey = k.replace(/[\[\]']+/g, "_");
                                 this[chdKey] = v;
                                 delete this[k];
+                            }else{
+                                return v;
                             }
-                            return v;
                         });
                         const parsedData = JSON.parse(data);
                         self.connector.cache(nodeId + '/' + attachmentName, parsedData);
