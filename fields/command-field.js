@@ -61,7 +61,7 @@ define(function (require/*, exports, module*/) {
                         console.log('data',data);
                         // const test = data.replace(/[\HHH[\]']+/g, "_HHH_");
                         // const parsedTest = JSON.parse(test);
-                        const parsed = JSON.parse(data, function(k, v) {
+                        const parsedData = JSON.parse(data, function(k, v) {
                             if (k.indexOf("[HHH]")>-1) {
                                 console.log('HHH k: ',k);
                                 let chdKey = k.replace(/[\[\]']+/g, "_");
@@ -71,7 +71,7 @@ define(function (require/*, exports, module*/) {
                                 return v;
                             }
                         });
-                        const parsedData = JSON.parse(data);
+                        // const parsedData = JSON.parse(data);
                         self.connector.cache(nodeId + '/' + attachmentName, parsedData);
                         Object.assign(field, parsedData)
                     })
