@@ -236,7 +236,6 @@ define(function(require, exports, module) {
 
                     var renderedDomElement = self.renderFieldDomElement(this.data);
                     $(stepEl).append(renderedDomElement);
-                    console.log('renderedDomElement',renderedDomElement);
 
                     // move elements in
                     for (var i = 0; i < stepFields.length; i++) {
@@ -260,9 +259,6 @@ define(function(require, exports, module) {
                                 $(item.domEl).attr("alpaca-layout-binding-field-name", item.name);
                                 holder.append(item.domEl);
                                 item.domEl.append(stepFields[i].containerItemEl);
-                                console.log('item',item);
-                                console.log('stepFields[i]',stepFields[i]);
-                                console.log('stepFields[i].containerItemEl',stepFields[i].containerItemEl);
                             }
                         }
                     }
@@ -276,7 +272,6 @@ define(function(require, exports, module) {
             this.wizard();
 
             // if the container element doesn't have any children left, hide it
-            console.log('this.container',this.container);
             if ($(this.container).children().length === 0) {
                 $(this.container).css("display", "none");
             }
