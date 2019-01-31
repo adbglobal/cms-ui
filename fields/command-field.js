@@ -58,17 +58,17 @@ define(function (require/*, exports, module*/) {
                     Object.assign(field, cachedDocument)
                 } else {
                     node.attachment(attachmentName).download(function (data) {
-                        const parsedData = JSON.parse(data, function(k, v) {
-                            if (k.indexOf("[HHH]")>-1) {
-                                console.log('HHH k: ',k);
-                                let chdKey = k.replace(/[\[\]']+/g, "§");
-                                this[chdKey] = v;
-                                delete this[k];
-                            }else{
-                                return v;
-                            }
-                        });
-                        // const parsedData = JSON.parse(data);
+                        // const parsedData = JSON.parse(data, function(k, v) {
+                        //     if (k.indexOf("[HHH]")>-1) {
+                        //         console.log('HHH k: ',k);
+                        //         let chdKey = k.replace(/[\[\]']+/g, "§");
+                        //         this[chdKey] = v;
+                        //         delete this[k];
+                        //     }else{
+                        //         return v;
+                        //     }
+                        // });
+                        const parsedData = JSON.parse(data);
                         self.connector.cache(nodeId + '/' + attachmentName, parsedData);
                         Object.assign(field, parsedData)
                     })
