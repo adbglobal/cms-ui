@@ -62,7 +62,8 @@ define(function (require/*, exports, module*/) {
                         const parsed = JSON.parse(data, function(k, v) {
                             if (k.indexOf("[HHH]")>-1) {
                                 console.log('HHH k: ',k);
-                                console.log('HHH v: ',v);
+                                k.replace(/[HHH]/g, "<HHH>'");
+                                this.key = k;
                             }
                             return v;
                         });
