@@ -65,7 +65,8 @@ define(function (require/*, exports, module*/) {
                             if (k.indexOf("[HHH]")>-1) {
                                 console.log('HHH k: ',k);
                                 let chdKey = k.replace(/[\[\]']+/g, "_");
-                                this[k] = chdKey;
+                                this[chdKey] = v;
+                                delete this[k];
                             }
                             return v;
                         });
