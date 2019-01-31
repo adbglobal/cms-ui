@@ -58,6 +58,7 @@ define(function (require/*, exports, module*/) {
                     Object.assign(field, cachedDocument)
                 } else {
                     node.attachment(attachmentName).download(function (data) {
+                        console.log('data',data);
                         const parsedData = JSON.parse(data);
                         self.connector.cache(nodeId + '/' + attachmentName, parsedData);
                         Object.assign(field, parsedData)
