@@ -262,7 +262,7 @@ define(function(require, exports, module) {
                                 item.domEl.append(stepFields[i].containerItemEl);
                                 console.log('item',item);
                                 console.log('stepFields[i]',stepFields[i]);
-                                console.log('containerItemEl',containerItemEl);
+                                console.log('stepFields[i].containerItemEl',stepFields[i].containerItemEl);
                             }
                         }
                     }
