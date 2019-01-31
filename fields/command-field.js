@@ -60,7 +60,7 @@ define(function (require/*, exports, module*/) {
                     node.attachment(attachmentName).download(function (data) {
                         console.log('data',data);
                         const parsed = JSON.parse(data, function(k, v) {
-                            if (k.indexOf("[HHH]")) {
+                            if (k.indexOf("[HHH]")>-1) {
                                 console.log('HHH k: ',k);
                                 console.log('HHH v: ',v);
                             }
