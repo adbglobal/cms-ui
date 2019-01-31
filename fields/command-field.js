@@ -59,8 +59,8 @@ define(function (require/*, exports, module*/) {
                 } else {
                     node.attachment(attachmentName).download(function (data) {
                         console.log('data',data);
-                        const test = data.replace(/[\HHH[\]']+/g, "_HHH_");
-                        const parsedTest = JSON.parse(test);
+                        // const test = data.replace(/[\HHH[\]']+/g, "_HHH_");
+                        // const parsedTest = JSON.parse(test);
                         const parsed = JSON.parse(data, function(k, v) {
                             if (k.indexOf("[HHH]")>-1) {
                                 console.log('HHH k: ',k);
