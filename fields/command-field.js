@@ -244,7 +244,6 @@ define(function (require/*, exports, module*/) {
         },
 
         setValue: function (value) {
-            console.log('setValue : value', value);
             if (!Alpaca.isEmpty(value)) {
                 this.checkApplianceCommand(value);
             }
@@ -272,8 +271,6 @@ define(function (require/*, exports, module*/) {
                 for (const key in src) {
                     if (src.hasOwnProperty(key) && data.hasOwnProperty(key)) {
                         const properties = schema.properties[key];
-                        console.log('src[key]',src[key]);
-                        console.log('key',key);
                         if (typeof src[key] === 'object') {
                             
                             this.checkSchema(src[key], data[key], properties);
@@ -282,9 +279,6 @@ define(function (require/*, exports, module*/) {
                         }
                     }
                 }
-                console.log('after : src', src);
-                console.log('after : data', data);
-                console.log('after : schema', schema);
             }
         }
     }));
