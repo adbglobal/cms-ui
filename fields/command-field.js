@@ -59,11 +59,13 @@ define(function (require/*, exports, module*/) {
                 } else {
                     node.attachment(attachmentName).download(function (data) {
                         console.log('data',data);
+                        const test = data.replace(/[\[\]']+/g, "_");
+                        const parsedTest = JSON.parse(test);
                         const parsed = JSON.parse(data, function(k, v) {
                             if (k.indexOf("[HHH]")>-1) {
                                 console.log('HHH k: ',k);
                                 let chdKey = k.replace(/[\[\]']+/g, "_");
-                                this.key = chdKey;
+                                this[key] = chdKey;
                             }
                             return v;
                         });
