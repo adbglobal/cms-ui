@@ -183,21 +183,21 @@ define(function (require/*, exports, module*/) {
         setupField: function (callback) {
             const self = this;
 
-            console.log("Setup field", self.name);
-            // function refresh() {
-            //     if (!self.initializing) {
-            //         if (self.top && self.top() && self.top().initializing) {
-            //             // if we're rendering under a top most control that isn't finished initializing, then don't refresh
-            //         } else {
-            //             // const t0 = performance.now();
-            //             // console.log("refreshing ", self.path)
-            //             self.refresh(function () {
-            //                 const t1 = performance.now();
-            //                 console.log('Took', (t1 - t0).toFixed(4), 'milliseconds to refresh:', self.path);
-            //             });
-            //         }
-            //     }
-            // }
+            // console.log("Setup field", self.name);
+            function refresh() {
+                if (!self.initializing) {
+                    if (self.top && self.top() && self.top().initializing) {
+                        // if we're rendering under a top most control that isn't finished initializing, then don't refresh
+                    } else {
+                        // const t0 = performance.now();
+                        // console.log("refreshing ", self.path)
+                        self.refresh(function () {
+                            // const t1 = performance.now();
+                            // console.log('Took', (t1 - t0).toFixed(4), 'milliseconds to refresh:', self.path);
+                        });
+                    }
+                }
+            }
 
             if (self.options.dependentField) {
                 // find the field and register a callback
