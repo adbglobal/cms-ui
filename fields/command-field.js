@@ -58,16 +58,6 @@ define(function (require/*, exports, module*/) {
                     Object.assign(field, cachedDocument)
                 } else {
                     node.attachment(attachmentName).download(function (data) {
-                        // const parsedData = JSON.parse(data, function(k, v) {
-                        //     if (k.indexOf("[HHH]")>-1) {
-                        //         console.log('HHH k: ',k);
-                        //         let chdKey = k.replace(/[\[\]']+/g, "§");
-                        //         this[chdKey] = v;
-                        //         delete this[k];
-                        //     }else{
-                        //         return v;
-                        //     }
-                        // });
                         const parsedData = JSON.parse(data);
                         self.connector.cache(nodeId + '/' + attachmentName, parsedData);
                         Object.assign(field, parsedData)
@@ -193,20 +183,20 @@ define(function (require/*, exports, module*/) {
         setupField: function (callback) {
             const self = this;
 
-            // console.log("Setup field", self.name);
+            console.log("Setup field", self.name);
             function refresh() {
-                if (!self.initializing) {
-                    if (self.top && self.top() && self.top().initializing) {
-                        // if we're rendering under a top most control that isn't finished initializing, then don't refresh
-                    } else {
-                        //const t0 = performance.now();
-                        //console.log("refreshing ", self.path)
-                        self.refresh(function () {
-                            //const t1 = performance.now();
-                            //console.log('Took', (t1 - t0).toFixed(4), 'milliseconds to refresh:', self.path);
-                        });
-                    }
-                }
+                // if (!self.initializing) {
+                //     if (self.top && self.top() && self.top().initializing) {
+                //         // if we're rendering under a top most control that isn't finished initializing, then don't refresh
+                //     } else {
+                //         //const t0 = performance.now();
+                //         //console.log("refreshing ", self.path)
+                //         self.refresh(function () {
+                //             //const t1 = performance.now();
+                //             //console.log('Took', (t1 - t0).toFixed(4), 'milliseconds to refresh:', self.path);
+                //         });
+                //     }
+                // }
             }
 
             if (self.options.dependentField) {
