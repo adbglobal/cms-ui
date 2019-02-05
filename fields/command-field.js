@@ -55,8 +55,10 @@ define(function (require/*, exports, module*/) {
             function loadCacheAttachment(field, node, attachmentName) {
                 const cachedDocument = self.connector.cache(nodeId + '/' + attachmentName);
                 if (cachedDocument) {
+                    console.log("manual 1");
                     Object.assign(field, cachedDocument)
                 } else {
+                    console.log("manual 2");
                     node.attachment(attachmentName).download(function (data) {
                         const parsedData = JSON.parse(data);
                         self.connector.cache(nodeId + '/' + attachmentName, parsedData);
@@ -68,14 +70,17 @@ define(function (require/*, exports, module*/) {
 
             function makeSlaveSchema(schema) {
                 if (schema.type === "object") {
+                    console.log("manual 3");
                     const newSchema = {};
                     Object.assign(newSchema, schema);
                     newSchema.properties = _.mapValues(schema.properties, makeSlaveSchema);
                     return newSchema
                 } else {
+                    console.log("manual 4");
                     const newSchema = {};
                     Object.assign(newSchema, schema);
                     if (!schema.isVariant) {
+                        console.log("manual 5");
                         newSchema["readonly"] = true;
                         newSchema["format"] = "text";
                     }
@@ -85,14 +90,17 @@ define(function (require/*, exports, module*/) {
 
             function makeSlaveOptions(schema) {
                 if (!Alpaca.isUndefined(schema.fields)) {
+                    console.log("manual 6");
                     const newSchema = {};
                     Object.assign(newSchema, schema);
                     newSchema.fields = _.mapValues(schema.fields, makeSlaveOptions);
                     return newSchema
                 } else {
+                    console.log("manual 7");
                     const newSchema = {};
                     Object.assign(newSchema, schema);
                     if (schema.type === "select") {
+                        console.log("manual 8");
                         newSchema.type = "text"
                     }
                     return newSchema
@@ -102,6 +110,7 @@ define(function (require/*, exports, module*/) {
             function loadCacheAttachments(node) {
                 //const t0 = performance.now();
                 if (self.options.isSlave) {
+                    console.log("manual 9");
                     // if (!node.isSlaveLoad) {
                     //     node.isSlaveLoad = true;
                     // console.log('Loading Slave schema', this.name);
@@ -121,6 +130,7 @@ define(function (require/*, exports, module*/) {
                     })
                     // }
                 } else {
+                    console.log("manual 10");
                     // if (!node.isMasterLoad) {
                     //     node.isMasterLoad = true;
                     // console.log('Loading Master schema', this.name);
@@ -151,19 +161,25 @@ define(function (require/*, exports, module*/) {
             function loadCachedNode() {
                 //console.log(self.name, ": fired")
                 loadCacheAttachments(clist.node);
-                if (callback)
+                if (callback){
+                    console.log("manual 11");
                     callback();
+                }
             }
 
             if (clist) {
+                console.log("manual 12");
                 if (clist.node) {
+                    console.log("manual 13");
                     //console.log("found")
                     loadCachedNode()
                 } else {
+                    console.log("manual 14");
                     //console.log("callback added")
                     clist.add(loadCachedNode)
                 }
             } else {
+                console.log("manual 15");
                 //console.log("not found")
                 clist = cacheHandlers();
                 clist.add(loadCachedNode);
@@ -173,6 +189,7 @@ define(function (require/*, exports, module*/) {
                     loadCacheAttachments(this);
                     callback && callback();
                 }).then(function () {
+                    console.log("manual 16");
                     //const t1 = performance.now();
                     //console.log('Took', (t1 - t0).toFixed(4), 'milliseconds to load node:', self.path);
                     clist.fire()
@@ -186,9 +203,12 @@ define(function (require/*, exports, module*/) {
             // console.log("Setup field", self.name);
             function refresh() {
                 if (!self.initializing) {
+                    console.log("manual 17");
                     if (self.top && self.top() && self.top().initializing) {
+                        console.log("manual 18");
                         // if we're rendering under a top most control that isn't finished initializing, then don't refresh
                     } else {
+                        console.log("manual 19");
                         // const t0 = performance.now();
                         // console.log("refreshing ", self.path)
                         self.refresh(function () {
@@ -200,21 +220,26 @@ define(function (require/*, exports, module*/) {
             }
 
             if (self.options.dependentField) {
+                console.log("manual 20");
                 // find the field and register a callback
                 self.top().on("ready", function () {
                     const dep = self.top().getControlByPath(self.options.dependentField);
                     //console.log(self.name, dep)
                     if (dep) {
+                        console.log("manual 21");
                         if (!self.subscribed) {
+                            console.log("manual 22");
                             self.subscribed = true;
                             self.subscribe(dep, function (value) {
                                 if (value) {
+                                    console.log("manual 23");
                                     const id = Alpaca.isArray(value)? self.getIdOfField(value[0]): self.getIdOfField(value);
                                     self.updateSchemaOptions(id, refresh)
                                 }
                             });
                         }
                         if (dep.data) {
+                            console.log("manual 24");
                             const id = Alpaca.isArray(dep.data)? self.getIdOfField(dep.data[0]): self.getIdOfField(dep.data);
                             self.updateSchemaOptions(id, refresh)
                         }
@@ -222,11 +247,14 @@ define(function (require/*, exports, module*/) {
                 });
                 const dep = self.top().getControlByPath(self.options.dependentField);
                 if (dep && dep.data) {
+                    console.log("manual 25");
                     this.base(function () {
                         if (!self.subscribed) {
+                            console.log("manual 26");
                             self.subscribed = true;
                             self.subscribe(dep, function (value) {
                                 if (value) {
+                                    console.log("manual 27");
                                     const id = Alpaca.isArray(value) ? self.getIdOfField(value[0]) : self.getIdOfField(value);
                                     self.updateSchemaOptions(id, refresh)
                                 }
@@ -236,15 +264,18 @@ define(function (require/*, exports, module*/) {
                         self.updateSchemaOptions(id, callback)
                     });
                 } else {
+                    console.log("manual 28");
                     this.base(callback)
                 }
             } else {
+                console.log("manual 29");
                 this.base(callback)
             }
         },
 
         setValue: function (value) {
             if (!Alpaca.isEmpty(value)) {
+                console.log("manual 30");
                 this.checkApplianceCommand(value);
             }
             this.base(value)
@@ -252,6 +283,7 @@ define(function (require/*, exports, module*/) {
 
         checkApplianceCommand: function (value) {
             if (value.hasOwnProperty('deviceCommandCode') && this.data.hasOwnProperty('deviceCommandCode') && this.schema) {
+                console.log("manual 31");
                 this.checkSchema(value, this.data, this.schema);
             }
         },
@@ -260,6 +292,7 @@ define(function (require/*, exports, module*/) {
             var ret = null;
 
             if(valueObj){
+                console.log("manual 32");
                 ret = valueObj.id || valueObj.value;
             }
 
@@ -268,13 +301,16 @@ define(function (require/*, exports, module*/) {
 
         checkSchema: function (src, data, schema) {
             if (schema && schema.hasOwnProperty('properties')) {
+                console.log("manual 33");
                 for (const key in src) {
                     if (src.hasOwnProperty(key) && data.hasOwnProperty(key)) {
+                        console.log("manual 34");
                         const properties = schema.properties[key];
                         if (typeof src[key] === 'object') {
-                            
+                            console.log("manual 35");
                             this.checkSchema(src[key], data[key], properties);
                         } else if (data[key] && src[key] !== data[key] && properties.isVariant) {
+                            console.log("manual 36");
                             src[key] = data[key];
                         }
                     }
