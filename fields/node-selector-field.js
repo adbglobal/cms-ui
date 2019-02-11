@@ -90,7 +90,11 @@ define(function(require, exports, module) {
             }
 
             function loadCachedList() {
-                console.log( "clist",clist)
+                console.log( "clist",clist);
+                for (var count = 0; count < clist.list.length; count++){
+                   delete clist.list[count].selected;
+                }
+
                 self.selectOptions = clist.list.slice();
                 if (callback)
                     callback();
@@ -105,7 +109,7 @@ define(function(require, exports, module) {
                     console.log("HIt cache found")
                     loadCachedList()
                 } else {
-                    console.log("callback added")
+                    console.log("callback added",loadCachedList)
                     clist.add(loadCachedList)
                 }
             } else {
