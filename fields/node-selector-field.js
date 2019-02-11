@@ -90,7 +90,7 @@ define(function(require, exports, module) {
             }
 
             function loadCachedList() {
-                //console.log(self.name, ": fired")
+                console.log( "clist",clist)
                 self.selectOptions = clist.list.slice();
                 if (callback)
                     callback();
