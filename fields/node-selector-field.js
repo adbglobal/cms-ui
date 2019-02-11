@@ -96,16 +96,16 @@ define(function(require, exports, module) {
                     callback();
             }
 
-           clist = undefined;// self.connector.cache(cachekey);
+           clist = self.connector.cache(cachekey);// undefined;
             console.log("  cache search",cachekey,self.connector.cache(cachekey));
             //  clist = self.connector.cache(cachekey);
             //console.log(self.name, ": ", cachekey)
             if (clist) {
                 if (clist.list) {
-                    //console.log("found")
+                    console.log("HIt cache found")
                     loadCachedList()
                 } else {
-                    //console.log("callback added")
+                    console.log("callback added")
                     clist.add(loadCachedList)
                 }
             } else {
@@ -113,7 +113,7 @@ define(function(require, exports, module) {
                 clist = cacheHandlers();
                 clist.add(loadCachedList);
                 self.connector.cache(cachekey, clist);
-                console.log(" out cache search",cachekey,self.connector.cache(cachekey));
+                console.log(" MISS CACHE cache search",self.schema._relator.nodeType,cachekey);
                 self.connector.branch.queryNodes({
                     _type: self.schema._relator.nodeType,
                     "_features.f:translation": { $exists: false }
