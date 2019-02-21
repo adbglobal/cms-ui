@@ -90,7 +90,7 @@ define(function(require, exports, module) {
             }
 
             function loadCachedList() {
-                console.log( "clist",clist);
+                //console.log( "clist",clist);
                 for (var count = 0; count < clist.list.length; count++){
                    delete clist.list[count].selected;
                 }
@@ -101,15 +101,15 @@ define(function(require, exports, module) {
             }
 
            clist = self.connector.cache(cachekey);// undefined;
-            console.log("  cache search",cachekey,self.connector.cache(cachekey));
+           // console.log("  cache search",cachekey,self.connector.cache(cachekey));
             //  clist = self.connector.cache(cachekey);
             //console.log(self.name, ": ", cachekey)
             if (clist) {
                 if (clist.list) {
-                    console.log("HIt cache found")
+                   // console.log("HIt cache found")
                     loadCachedList()
                 } else {
-                    console.log("callback added",loadCachedList)
+                    //console.log("callback added",loadCachedList)
                     clist.add(loadCachedList)
                 }
             } else {
