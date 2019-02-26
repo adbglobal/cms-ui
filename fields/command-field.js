@@ -108,12 +108,12 @@ define(function (require/*, exports, module*/) {
                     const loadMasterSchema = function () {
                             const masterSchema = {};
                             loadCacheAttachment(masterSchema, node, 'schema');
-                            Object.assign(self.schema, makeSlaveSchema(masterSchema))
+                            Object.assign(self.schema, makeSlaveSchema(JSON.parse(JSON.stringify(masterSchema)) ))
                         },
                         loadMasterOptions = function () {
                             const masterOptions = {};
                             loadCacheAttachment(masterOptions, node, 'options');
-                            Object.assign(self.options, makeSlaveOptions(masterOptions))
+                            Object.assign(self.options, makeSlaveOptions( JSON.parse(JSON.stringify(masterOptions))  ))
                         };
                     Alpaca.parallel([loadMasterSchema, loadMasterOptions], function () {
                         //const t1 = performance.now();
