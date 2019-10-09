@@ -117,7 +117,7 @@ define(function(require, exports, module) {
                 clist = cacheHandlers();
                 clist.add(loadCachedList);
                 self.connector.cache(cachekey, clist);
-                console.log(" MISS CACHE cache search",self.schema._relator.nodeType,cachekey);
+              //  console.log(" MISS CACHE cache search",self.schema._relator.nodeType,cachekey);
                 self.connector.branch.queryNodes({
                     _type: self.schema._relator.nodeType,
                     "_features.f:translation": { $exists: false }

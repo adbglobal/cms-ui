@@ -60,7 +60,8 @@ define(function(require, exports, module) {
                 self.top().on("ready", function(e) {
                     var dep = self.top().getControlByPath(self.options.dependentField);
                     if (dep) {
-                        dep.getFieldEl().bind("fieldupdate", debouceUpdateField)
+                        //dep.getFieldEl().bind("fieldupdate", debouceUpdateField)
+                        dep.getContainerEl().bind("fieldupdate", debouceUpdateField)
                     }
                 });
             }
